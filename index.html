@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Interactivos de Robótica</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Columna lateral de navegación */
+        .sidebar {
+            width: 320px;
+            background-color: #333a45;
+            color: #fff;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+        .sidebar h1 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #58D68D; /* Verde para un look "tech" */
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            transition: background-color 0.3s;
+        }
+        .sidebar li a:hover, .sidebar li a.active {
+            background-color: #58D68D;
+        }
+        .sidebar li a .topic-number {
+            font-weight: bold;
+            margin-right: 8px;
+            display: block;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        /* Área de contenido principal */
+        .content-area {
+            flex-grow: 1;
+            margin-left: 320px;
+            padding: 40px;
+        }
+
+        /* Estilo para los paneles de retos */
+        .challenge-panel {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 25px 35px;
+            display: none; /* Ocultos por defecto */
+        }
+        .challenge-panel h2 {
+            font-size: 2em;
+            color: #58D68D;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .challenge-panel.active {
+            display: block; /* Muestra el panel activo */
+        }
+        .challenge-panel h3 {
+            font-size: 1.3em;
+            color: #333a45;
+            margin-top: 25px;
+        }
+        .challenge-panel ul {
+            list-style-type: '✓  ';
+            padding-left: 20px;
+        }
+        .challenge-panel li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <h1>Retos de Robótica 🚀</h1>
+            <ul id="challenge-list">
+                </ul>
+        </nav>
+
+        <main class="content-area" id="content-panels">
+             </main>
+    </div>
+
+    <script>
+        // --- 1. DATOS DE LOS RETOS ---
+        const challengeData = [
+            {
+                title: "Reto 1: El Guardián de la Luz",
+                introduction: "¡Bienvenidos, ingenieros! Vuestra primera misión es una de las más importantes de todas: aprender a controlar la energía eléctrica. Antes de construir robots complejos, debemos entender el 'alma' que los mueve: la electricidad. Hoy no solo vais a encender una luz, vais a convertiros en sus guardianes, asegurándoos de que brille con la intensidad justa y sin quemarse en el intento.",
+                description: "Vuestro reto consiste en construir un circuito electrónico desde cero en una protoboard. Usando una fuente de alimentación (pilas), seréis capaces de encender un diodo LED de forma segura. Para ello, tendréis que hacer un cálculo crucial: determinar el valor de la resistencia que protegerá vuestro LED, convirtiéndose en su 'guardaespaldas'.",
+                applications: "Dominar este concepto es la base de TODA la electrónica. Desde el piloto rojo que indica que tu videoconsola está en standby, pasando por la potente iluminación LED de los estadios de fútbol, hasta las diminutas luces que iluminan la pantalla de tu móvil. Todos estos sistemas se basan en el mismo principio que vais a aplicar hoy.",
+                materials: ["1 x Protoboard", "1 x Portapilas (para 4 pilas AA)", "4 x Pilas AA", "2 x Diodos LED", "1 x Resistencia (calculada por vosotros)", "Varios cables de conexión"],
+                tools: ["Calculadora (para la Ley de Ohm)", "Opcional: Multímetro"]
+            },
+            {
+                title: "Reto 2: Misión: Espía Wi-Fi",
+                introduction: "Hoy vais a convertir vuestra pequeña placa ESP32 en una potente herramienta de inteligencia de redes. En un mundo donde todo está conectado, saber 'escuchar' el entorno digital es una habilidad fundamental. Vuestra misión es programar el ESP32 para que despierte sus superpoderes de conectividad y nos revele un secreto del mundo invisible que nos rodea: las redes Wi-Fi.",
+                description: "Programaréis vuestro ESP32 para que realice un escaneo completo de todas las redes Wi-Fi que estén a su alcance. El resultado no será visible en el mundo físico, sino en la consola de vuestro ordenador. La placa enviará un informe detallado con los nombres (SSID) de todas las redes que detecte, demostrando que ya es un portal de comunicación.",
+                applications: "Esta es la base del Internet de las Cosas (IoT). Dispositivos como los altavoces inteligentes (Alexa, Google Home), los sensores de domótica o los smartwatches, realizan constantemente este proceso para conectarse a internet y funcionar. También es un principio básico en ciberseguridad para analizar las redes de un edificio.",
+                materials: ["1 x Placa de desarrollo ESP32"],
+                tools: ["Ordenador con el entorno de desarrollo configurado", "Cable USB para conectar el ESP32"]
+            },
+            {
+                title: "Reto 3: El Radar Sónico",
+                introduction: "Los animales como los murciélagos y los delfines no necesitan ver para navegar en la oscuridad. Usan el sonido, emitiendo un pulso y midiendo su eco para crear un mapa de su entorno. Hoy, vais a construir vuestro propio sistema de sónar, dándole a vuestro futuro robot la capacidad de 'ver' con el sonido.",
+                description: "Crearéis una alarma de proximidad inteligente. Vuestro dispositivo usará un sensor de ultrasonidos para medir constantemente la distancia a un objeto. Un LED conectado al sistema actuará como indicador visual: a medida que el objeto se acerque al sensor, el parpadeo del LED se volverá cada vez más rápido, creando una sensación de urgencia.",
+                applications: "Esta tecnología está por todas partes. Los sensores de aparcamiento de los coches funcionan exactamente así. Los robots industriales lo usan para detectar personas y evitar accidentes, y los drones lo utilizan para mantener una altitud constante sobre el terreno o para esquivar objetos.",
+                materials: ["1 x Placa de desarrollo ESP32", "1 x Protoboard", "1 x Sensor de ultrasonidos (HC-SR04)", "1 x Diodo LED", "1 x Resistencia (aprox. 220 o 330 Ohms)", "Varios cables de conexión"],
+                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
+            },
+            {
+                title: "Reto 4: El Dedo Robótico",
+                introduction: "Hoy damos un salto gigantesco: vamos a pasar de percibir el mundo a interactuar con él. El reto es crear movimiento, pero no cualquier movimiento, sino uno controlado con una precisión milimétrica. Vais a construir el equivalente a una articulación, un 'dedo robótico' capaz de apuntar a cualquier posición que le ordenéis.",
+                description: "Montaréis un sistema de control directo. Conectaréis un potenciómetro (un mando giratorio) que actuará como vuestro joystick de control. A su lado, un servomotor esperará vuestras órdenes. Al girar la perilla del potenciómetro, el eje del servomotor deberá imitar vuestro movimiento de forma instantánea y precisa, barriendo un ángulo de 180 grados.",
+                applications: "Los servomotores son los 'músculos' de la robótica de precisión. Se usan en las articulaciones de los brazos robóticos, en los sistemas que mueven los alerones de los aviones y drones, en las cámaras de seguridad robotizadas y en la impresión 3D para posicionar el cabezal con una exactitud increíble.",
+                materials: ["1 x Placa de desarrollo ESP32", "1 x Protoboard", "1 x Servomotor (tipo SG90)", "1 x Potenciómetro (10k Ohms)", "Varios cables de conexión"],
+                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
+            },
+            {
+                title: "Reto 5: El Rover Explorador Autónomo",
+                introduction: "Ha llegado el momento de combinarlo todo. Sensores para percibir, actuadores para moverse y un cerebro para tomar decisiones. Vuestra misión es construir un vehículo terrestre autónomo, un rover capaz de explorar un territorio desconocido sin chocar contra los obstáculos, tomando sus propias decisiones.",
+                description: "Ensamblaréis y programaréis un robot móvil completo. Usando un chasis, dos motores, un sensor de ultrasonidos y vuestro ESP32, crearéis un sistema que avanza hasta que su 'radar sónico' detecta un obstáculo. En ese momento, el robot deberá detenerse, girar para encontrar una ruta despejada y continuar su exploración.",
+                applications: "Estáis construyendo el prototipo de tecnologías que están cambiando el mundo: desde los robots aspiradora como la Roomba, hasta los coches autónomos. Esta misma lógica la usan los robots de reparto en almacenes logísticos y los drones exploradores que inspeccionan zonas de desastre.",
+                materials: ["1 x Placa ESP32", "1 x Chasis de robot de 2 ruedas", "2 x Motores DC con ruedas", "1 x Controlador de motores (Driver L298N)", "1 x Sensor de ultrasonidos (HC-SR04)", "1 x Portapilas o Power Bank", "Varios cables de conexión"],
+                tools: ["Ordenador con el entorno de desarrollo", "Cable USB", "Destornillador para el ensamblaje"]
+            },
+            {
+                title: "Reto 6: El Brazo Industrial de Precisión",
+                introduction: "¡Bienvenidos a vuestro proyecto final! Hoy os convertiréis en ingenieros de automatización. Vais a construir y programar una versión a escala de los impresionantes brazos robóticos que ensamblan coches o fabrican microchips. Vuestra tarea es programar una secuencia de movimientos perfecta para que vuestro brazo realice una tarea útil.",
+                description: "Programaréis un brazo robótico para que ejecute una tarea de logística autónoma: la clásica 'Pick and Place'. El brazo deberá moverse a una posición (Punto A), recoger un objeto, transportarlo a una segunda ubicación (Punto B) y depositarlo allí. Luego, volverá a su posición de inicio, listo para repetir el ciclo.",
+                applications: "Esta es la tarea más común en la automatización industrial. Los brazos robóticos realizan operaciones 'Pick and Place' millones de veces al día: colocan componentes en las placas de los móviles, mueven botellas en una planta de envasado o incluso realizan cirugías con una precisión sobrehumana.",
+                materials: ["1 x Placa ESP32", "1 x Kit de brazo robótico (2-3 servos)", "1 x Protoboard", "Fuente de alimentación externa para los servos", "Un objeto pequeño para la tarea", "Varios cables de conexión"],
+                tools: ["Ordenador con el entorno de desarrollo", "Cable USB", "Destornillador y alicates para el montaje"]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const challengeList = document.getElementById('challenge-list');
+            const contentPanels = document.getElementById('content-panels');
+
+            // --- 2. Generar dinámicamente el HTML ---
+            challengeData.forEach((challenge, index) => {
+                const challengeId = `reto-${index + 1}`;
+
+                // Crear enlace en la barra lateral
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#${challengeId}" class="challenge-link"><span class="topic-number">Reto ${index + 1}</span>${challenge.title.split(': ')[1]}</a>`;
+                challengeList.appendChild(listItem);
+
+                // Crear panel de contenido
+                const panel = document.createElement('section');
+                panel.id = challengeId;
+                panel.className = 'challenge-panel';
+                
+                // Generar listas de materiales y herramientas
+                let materialsHtml = '<ul>';
+                challenge.materials.forEach(item => { materialsHtml += `<li>${item}</li>`; });
+                materialsHtml += '</ul>';
+
+                let toolsHtml = '<ul>';
+                challenge.tools.forEach(item => { toolsHtml += `<li>${item}</li>`; });
+                toolsHtml += '</ul>';
+
+                // Ensamblar todo el HTML del panel
+                panel.innerHTML = `
+                    <h2>${challenge.title}</h2>
+                    
+                    <h3>Introducción: ¡Vuestro objetivo!</h3>
+                    <p>${challenge.introduction}</p>
+                    
+                    <h3>¿Qué vais a construir?</h3>
+                    <p>${challenge.description}</p>
+                    
+                    <h3>Aplicaciones en el Mundo Real</h3>
+                    <p>${challenge.applications}</p>
+                    
+                    <h3>Lista de Materiales</h3>
+                    ${materialsHtml}
+                    
+                    <h3>Lista de Herramientas</h3>
+                    ${toolsHtml}
+                `;
+                contentPanels.appendChild(panel);
+            });
+
+
+            // --- 3. Añadir interactividad ---
+            const links = document.querySelectorAll('.challenge-link');
+            const panels = document.querySelectorAll('.challenge-panel');
+
+            function showPanel(targetId) {
+                // Ocultar todos los paneles y quitar 'active' de los links
+                panels.forEach(panel => panel.classList.remove('active'));
+                links.forEach(link => link.classList.remove('active'));
+
+                // Mostrar el panel y el link activo
+                const targetPanel = document.querySelector(targetId);
+                const activeLink = document.querySelector(`a[href="${targetId}"]`);
+
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    showPanel(targetId);
+                });
+            });
+
+            // Mostrar el primer reto por defecto
+            showPanel('#reto-1');
+        });
+    </script>
+
+</body>
+</html>
