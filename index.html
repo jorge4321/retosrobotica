@@ -31,6 +31,7 @@
             top: 0;
             left: 0;
             overflow-y: auto;
+            transition: transform 0.3s ease; /* Animación suave si se oculta */
         }
         .sidebar h1 {
             font-size: 1.5em;
@@ -67,6 +68,7 @@
             flex-grow: 1;
             margin-left: 320px;
             padding: 40px;
+            transition: margin-left 0.3s ease;
         }
 
         /* Estilo para los paneles de retos */
@@ -76,6 +78,8 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 25px 35px;
             display: none; /* Ocultos por defecto */
+            max-width: 1000px; /* Límite de ancho para mejor lectura */
+            margin: 0 auto;    /* Centrado si hay espacio */
         }
         .challenge-panel h2 {
             font-size: 2em;
@@ -216,7 +220,6 @@
                 contentPanels.appendChild(panel);
             });
 
-
             // --- 3. Añadir interactividad ---
             const links = document.querySelectorAll('.challenge-link');
             const panels = document.querySelectorAll('.challenge-panel');
@@ -246,8 +249,40 @@
                 });
             });
 
-            // Mostrar el primer reto por defecto
-            showPanel('#reto-1');
+            // --- 4. MODO QUIOSCO / SOLO LECTURA ---
+            // Esta sección permite ocultar el menú si se pasa un parámetro en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const retoEspecifico = urlParams.get('ver'); // Busca ?ver=reto-X
+
+            if (retoEspecifico) {
+                // A) Si hay petición específica en la URL:
+                
+                // 1. Ocultar la barra lateral completamente
+                const sidebar = document.querySelector('.sidebar');
+                if(sidebar) sidebar.style.display = 'none';
+
+                // 2. Quitar el margen izquierdo del contenido para que ocupe todo el ancho
+                const contentArea = document.querySelector('.content-area');
+                if(contentArea) {
+                    contentArea.style.marginLeft = '0';
+                    contentArea.style.width = '100%';
+                }
+
+                // 3. Mostrar SOLAMENTE el reto pedido
+                // Aseguramos que existe el panel con ese ID (ej: reto-1)
+                const panelPedido = document.getElementById(retoEspecifico);
+                if (panelPedido) {
+                    panelPedido.classList.add('active');
+                } else {
+                    // Si escriben mal el número, mostramos alerta o simplemente nada
+                    console.warn('Reto no encontrado: ' + retoEspecifico);
+                }
+
+            } else {
+                // B) Modo normal (Si no hay ?ver=...):
+                // Mostrar el primer reto por defecto
+                showPanel('#reto-1');
+            }
         });
     </script>
 
