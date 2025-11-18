@@ -130,7 +130,15 @@
                 tools: ["Calculadora (para la Ley de Ohm)", "Opcional: Multímetro"]
             },
             {
-                title: "Reto 2: Misión, el Espía Wi-Fi",
+                title: "Reto 2: Activar un LED usando un transistor NPN",
+                introduction: "A veces necesitamos activar componentes con una señal muy débil o con un simple toque. El transistor 2N2551 actuará como un interruptor electrónico activado por una pequeña corriente.",
+                description: "Vuestro reto es montar un circuito en la protoboard usando el transistor 2N2551. Conectaréis un pulsador a la base del transistor (a través de una resistencia). Al pulsar el botón, una pequeña corriente entrará por la base y permitirá que una corriente mayor fluya desde el colector, encendiendo el LED. ¡Sin el transistor, este control no sería tan eficiente!",
+                applications: "Este circuito es la base de los amplificadores y de la automatización. Así funcionan los sensores de movimiento que encienden luces o los sistemas de alarma.",
+                materials: ["1 x Fuente de alimentación (Pilas o 5V)", "1 x Transistor NPN 2N2551", "1 x Pulsador (Pushbutton)", "1 x Diodo LED", "1 x Resistencia 330Ω (Para el LED)", "1 x Resistencia 10kΩ (Para la Base)", "Protoboard y cables"],
+                tools: ["Hoja de datos (Datasheet) del 2N2551", "Multímetro"]
+            },
+            {
+                title: "Reto 3: Misión, el Espía Wi-Fi",
                 introduction: "Hoy vais a convertir vuestra pequeña placa ESP32 en una potente herramienta de inteligencia de redes. En un mundo donde todo está conectado, saber 'escuchar' el entorno digital es una habilidad fundamental. Vuestra misión es programar el ESP32 para que despierte sus superpoderes de conectividad y nos revele un secreto del mundo invisible que nos rodea: las redes Wi-Fi.",
                 description: "Programaréis vuestro ESP32 para que realice un escaneo completo de todas las redes Wi-Fi que estén a su alcance. El resultado no será visible en el mundo físico, sino en la consola de vuestro ordenador. La placa enviará un informe detallado con los nombres (SSID) de todas las redes que detecte, demostrando que ya es un portal de comunicación.",
                 applications: "Esta es la base del Internet de las Cosas (IoT). Dispositivos como los altavoces inteligentes (Alexa, Google Home), los sensores de domótica o los smartwatches, realizan constantemente este proceso para conectarse a internet y funcionar. También es un principio básico en ciberseguridad para analizar las redes de un edificio.",
@@ -138,36 +146,12 @@
                 tools: ["Ordenador con el entorno de desarrollo configurado", "Cable USB para conectar el ESP32"]
             },
             {
-                title: "Reto 3: El Radar Sónico",
+                title: "Reto 4: El Radar Sónico",
                 introduction: "Los animales como los murciélagos y los delfines no necesitan ver para navegar en la oscuridad. Usan el sonido, emitiendo un pulso y midiendo su eco para crear un mapa de su entorno. Hoy, vais a construir vuestro propio sistema de sónar, dándole a vuestro futuro robot la capacidad de 'ver' con el sonido.",
                 description: "Crearéis una alarma de proximidad inteligente. Vuestro dispositivo usará un sensor de ultrasonidos para medir constantemente la distancia a un objeto. Un LED conectado al sistema actuará como indicador visual: a medida que el objeto se acerque al sensor, el parpadeo del LED se volverá cada vez más rápido, creando una sensación de urgencia.",
                 applications: "Esta tecnología está por todas partes. Los sensores de aparcamiento de los coches funcionan exactamente así. Los robots industriales lo usan para detectar personas y evitar accidentes, y los drones lo utilizan para mantener una altitud constante sobre el terreno o para esquivar objetos.",
                 materials: ["1 x Placa de desarrollo ESP32", "1 x Protoboard", "1 x Sensor de ultrasonidos (HC-SR04)", "1 x Diodo LED", "1 x Resistencia (aprox. 220 o 330 Ohms)", "Varios cables de conexión"],
                 tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
-            },
-            {
-                title: "Reto 4: El Dedo Robótico",
-                introduction: "Hoy damos un salto gigantesco: vamos a pasar de percibir el mundo a interactuar con él. El reto es crear movimiento, pero no cualquier movimiento, sino uno controlado con una precisión milimétrica. Vais a construir el equivalente a una articulación, un 'dedo robótico' capaz de apuntar a cualquier posición que le ordenéis.",
-                description: "Montaréis un sistema de control directo. Conectaréis un potenciómetro (un mando giratorio) que actuará como vuestro joystick de control. A su lado, un servomotor esperará vuestras órdenes. Al girar la perilla del potenciómetro, el eje del servomotor deberá imitar vuestro movimiento de forma instantánea y precisa, barriendo un ángulo de 180 grados.",
-                applications: "Los servomotores son los 'músculos' de la robótica de precisión. Se usan en las articulaciones de los brazos robóticos, en los sistemas que mueven los alerones de los aviones y drones, en las cámaras de seguridad robotizadas y en la impresión 3D para posicionar el cabezal con una exactitud increíble.",
-                materials: ["1 x Placa de desarrollo ESP32", "1 x Protoboard", "1 x Servomotor (tipo SG90)", "1 x Potenciómetro (10k Ohms)", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB"]
-            },
-            {
-                title: "Reto 5: El Rover Explorador Autónomo",
-                introduction: "Ha llegado el momento de combinarlo todo. Sensores para percibir, actuadores para moverse y un cerebro para tomar decisiones. Vuestra misión es construir un vehículo terrestre autónomo, un rover capaz de explorar un territorio desconocido sin chocar contra los obstáculos, tomando sus propias decisiones.",
-                description: "Ensamblaréis y programaréis un robot móvil completo. Usando un chasis, dos motores, un sensor de ultrasonidos y vuestro ESP32, crearéis un sistema que avanza hasta que su 'radar sónico' detecta un obstáculo. En ese momento, el robot deberá detenerse, girar para encontrar una ruta despejada y continuar su exploración.",
-                applications: "Estáis construyendo el prototipo de tecnologías que están cambiando el mundo: desde los robots aspiradora como la Roomba, hasta los coches autónomos. Esta misma lógica la usan los robots de reparto en almacenes logísticos y los drones exploradores que inspeccionan zonas de desastre.",
-                materials: ["1 x Placa ESP32", "1 x Chasis de robot de 2 ruedas", "2 x Motores DC con ruedas", "1 x Controlador de motores (Driver L298N)", "1 x Sensor de ultrasonidos (HC-SR04)", "1 x Portapilas o Power Bank", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB", "Destornillador para el ensamblaje"]
-            },
-            {
-                title: "Reto 6: El Brazo Industrial de Precisión",
-                introduction: "¡Bienvenidos a vuestro proyecto final! Hoy os convertiréis en ingenieros de automatización. Vais a construir y programar una versión a escala de los impresionantes brazos robóticos que ensamblan coches o fabrican microchips. Vuestra tarea es programar una secuencia de movimientos perfecta para que vuestro brazo realice una tarea útil.",
-                description: "Programaréis un brazo robótico para que ejecute una tarea de logística autónoma: la clásica 'Pick and Place'. El brazo deberá moverse a una posición (Punto A), recoger un objeto, transportarlo a una segunda ubicación (Punto B) y depositarlo allí. Luego, volverá a su posición de inicio, listo para repetir el ciclo.",
-                applications: "Esta es la tarea más común en la automatización industrial. Los brazos robóticos realizan operaciones 'Pick and Place' millones de veces al día: colocan componentes en las placas de los móviles, mueven botellas en una planta de envasado o incluso realizan cirugías con una precisión sobrehumana.",
-                materials: ["1 x Placa ESP32", "1 x Kit de brazo robótico (2-3 servos)", "1 x Protoboard", "Fuente de alimentación externa para los servos", "Un objeto pequeño para la tarea", "Varios cables de conexión"],
-                tools: ["Ordenador con el entorno de desarrollo", "Cable USB", "Destornillador y alicates para el montaje"]
             }
         ];
 
@@ -288,4 +272,5 @@
 
 </body>
 </html>
+
 
